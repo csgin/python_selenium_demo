@@ -79,8 +79,10 @@ class Home():
                 Calendar(self.element.span_by_aria_label(departure_date)).click()
 
             def get_dates(self):
-                check_in = MultiSelect(f"{self.search_bar_locator}//div[@data-placeholder='Check-in']").get_text().split(" ")[1:]
-                check_out = MultiSelect(f"{self.search_bar_locator}//div[@data-placeholder='Check-out']").get_text().split(" ")[1:]
+                check_in = MultiSelect(
+                    f"{self.search_bar_locator}//div[@data-placeholder='Check-in']").get_text().split(" ")[1:]
+                check_out = MultiSelect(
+                    f"{self.search_bar_locator}//div[@data-placeholder='Check-out']").get_text().split(" ")[1:]
                 return (check_in, check_out)
 
             def assert_dates_after_dates_selection(self, arrival_date, departure_date):
@@ -113,13 +115,16 @@ class Home():
             def check_if_child_multiselect_contains_exacly(self, list):
                 no_of_childs = self.get_child_count()
                 for i in range(no_of_childs):
-                    MultiSelect(self.element.select_by_aria_label(f"Child {i + 1} age") + "//option").should_contain_exacly(list)
+                    MultiSelect(self.element.select_by_aria_label(
+                        f"Child {i + 1} age") + "//option").should_contain_exacly(list)
 
             def select_child_age(self, child_index, age):
-                MultiSelect(self.element.select_by_aria_label(f"Child {child_index} age")).select_by_text(age)
+                MultiSelect(self.element.select_by_aria_label(
+                    f"Child {child_index} age")).select_by_text(age)
 
             def get_selected_age_for_child(self, child_index):
-                return MultiSelect(self.element.select_by_aria_label(f"Child {child_index} age")).get_text_from_select()
+                return MultiSelect(self.element.select_by_aria_label(
+                    f"Child {child_index} age")).get_text_from_select()
 
             def set_adult_count(self, number):
                 current = self.get_adult_count()
@@ -168,6 +173,24 @@ class Home():
 
             def remove_room_button_should_be_disabled(self):
                 Button(self.remove_room_button).should_be_disabled_by_class()
+
+            def add_adult_button_should_be_visible(self):
+                Button(self.add_adult_button).should_be_visible()
+
+            def add_child_button_should_be_visible(self):
+                Button(self.add_child_button).should_be_visible()
+
+            def add_room_button_should_be_visible(self):
+                Button(self.add_room_button).should_be_visible()
+
+            def remove_adult_button_should_be_visible(self):
+                Button(self.remove_adult_button).should_be_visible()
+
+            def remove_child_button_should_be_visible(self):
+                Button(self.remove_child_button).should_be_visible()
+
+            def remove_room_button_should_be_visible(self):
+                Button(self.remove_room_button).should_be_visible()
 
             def get_adult_count(self):
                 return int(Text(self.adult_count).get_attribute('innerHTML').split(" ")[0])
